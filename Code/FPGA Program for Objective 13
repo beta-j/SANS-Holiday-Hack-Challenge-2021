@@ -1,0 +1,44 @@
+//
+// CREDIIT: Based on code presented by Prof. Qwerty Petabyte at https://www.youtube.com/watch?v=GFdG1PJ4QjA
+//
+// input clk - this will be connected to the 125MHz system clock
+// input rst - this will be connected to the system board's reset bus
+// input freq - a 32 bit integer indicating the required frequency
+//              (0 - 9999.99Hz) formatted as follows:
+//              32'hf1206 or 32'd987654 = 9876.54Hz
+// output wave_out - a square wave output of the desired frequency
+// you can create whatever other variables you need, but remember
+// to initialize them to something!
+
+module tone_generator (
+    input clk,
+    input rst,
+    input [31:0] freq,
+    output wave_out
+);
+
+    real counter;					// create a variable to count clk edges
+    reg sound;						// this will carry our output bit
+    assign wave_out = sound;
+    real limit;					// works out the no of edges to count
+    always @(posedge clk or posedge rst)
+    begin
+        if(rst==1)
+            begin
+                sound <= 0;
+                limit <= 62500000/(freq/100);	//i.e. half clk frequency divided by user input
+                counter <= limit;
+            end
+        else
+            begin
+                if (counter<=0)
+                    begin
+                        counter <= limit-1;
+                        sound <= sound ^ 1'b1;	// invert output bit
+                    end
+                else counter <= counter - 1;	// decrement counter	
+            end
+    end
+endmodule
+
+
