@@ -104,3 +104,44 @@ Input A|	Input B| AND|	OR|	NOR|	NAND|	XOR|	XNOR|
 #  
 #  
 #  
+# CHALLENGE 4 - IPv6 Sandbox #
+
+## HINTS: ##
+<details>
+  <summary>Hints provided for Objective 13</summary>
+  
+>-	Check out [this Github Gist](https://gist.github.com/chriselgee/c1c69756e527f649d0a95b6f20337c2f) with common tools used in an IPv6 context.
+
+</details>
+
+  
+## PROCEDURE : ##
+
+I started by following the advice in the hint and having a look at [the Github Gist](https://gist.github.com/chriselgee/c1c69756e527f649d0a95b6f20337c2f).  The Gist suggests using ``ping6 ff02::1 -c2`` to 
+>“find link local addresses for systems in your network segment”
+
+``ff02::1`` is a special multicast address that addresses all nodes.
+
+Surely enough, running this command returns IPv6 addresses for 3 different hosts and from `ifconfig` I can determine which one is my own host address:
+
+![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/12649cc1-d12e-4552-bc13-5eaae6b6e2a9)
+![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/8f30e088-d365-4c1a-b8c7-37f02f3950ff)
+
+So that leaves two possible hosts:
+    ``fe80::42:1cff:feb5:4f73``
+    ``fe80::42:c0ff:fea8:a002``
+
+Running `nmap` on the two hosts shows that one of them has a http service running which looks interesting:
+![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/60f9b8b9-6f1b-461b-86b9-98813b72ac14)
+
+I used `curl` with a special IPv6 notation to make a request to the web server and got a marquee message with a convenient hint:
+```
+~$ curl http://[fe80::42:c0ff:fea8:a002]:80/ --interface eth0
+```
+![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/41fcd4fc-c00f-45d9-925e-e03f8d8da7a3)
+
+OK – so let’s follow its advice and try to connect to the service on port 9000 with `netcat`:
+![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/fe04d280-2e57-4f36-936e-9a36bc840752)
+
+That’s it – that must be the passphrase! 
+
