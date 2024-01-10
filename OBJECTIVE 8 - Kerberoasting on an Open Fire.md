@@ -122,8 +122,18 @@ $ADSI.psbase.ObjectSecurity.GetAccessRules($true,$true,[Security.Principal.NTAcc
 And here we see that WriteDacl is enabled for `remote_elf`... excellent!
 ![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/1a6df0c0-4ff4-48e2-9701-f30363b6f70f)
 
-So now I can use `remote_elf`’s privileges to give `Generic All` access to our username provided by the `register.elfu.org` system.  For this I can use this script.  The script runs with a number of errors, but when I check permissions again I see that my user now has `GenericAll` rights.
+So now I can use `remote_elf`’s privileges to give `Generic All` access to our username provided by the `register.elfu.org` system.  For this I can use [this script](https://github.com/chrisjd20/hhc21_powershell_snippets#in-the-below-example-the-genericall-permission-for-the-chrisd-user-to-the-domain-admins-group-if-the-user-your-running-it-under-has-the-writedacl-permission-on-the-domain-admins-group).  The script runs with a number of errors, but when I [check permissions](https://github.com/chrisjd20/hhc21_powershell_snippets#you-can-read-the-dacl-of-an-ad-group-object-using) again I see that my user now has `GenericAll` rights.
 ![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/3bb62529-b447-4609-b9a6-77cdde7b2606)
+
+This means that I should now be able to add myself to the `ResearchDepartment` group.  To do this I run [this script](https://github.com/chrisjd20/hhc21_powershell_snippets#in-the-below-example-the-genericall-permission-for-the-chrisd-user-to-the-domain-admins-group-if-the-user-your-running-it-under-has-the-writedacl-permission-on-the-domain-admins-group ) and I can now verify that my user; `fmcygawtjd` has indeed been added to the `ResearchDepartment` group.
+![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/d94a8ea3-df2a-40b3-af4d-873fad5f01fa)
+
+Now I am able to access `//10.128.3.30/research_dep` with my own username and password and there I (**FINALLY**) find a nice file waiting for me: [`SantaSecretToAWonderfulHolidaySeason.pdf`](Assets/SantasSecretToAWonderfulHolidaySeason.pdf).  It would have been nice if it had been a simple txt file I guess – but anyway – I can use `scp` to transfer the file to my PC. 
+
+But `scp` gives me a *“TERM Environment Variable Not Set”* Error and helpfully suggests I use a bash shell on the remote pc.  So I switch to bash by running ``$ chsh -s /bin/bash`` then exiting back to the python prompt and calling up the bash prompt once again.  Now I was able to `scp` the document to my PC and open the pdf to find the Santa’s ingredient at the top of the list.
+
+This was one super challenging Objective!  So many of the elements were completely new to me; rpcclient enumeration, working with AD, working with PowerShell, etc.. not to mention Kerberoasting!  But this is what keeps bringing me back to the HolidayHack Challenge year after year – the challenges are all challenging but achievable and it’s a great feeling when I get to accomplish each one 😊  
+![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/413e9a0a-61b1-4d36-9ef1-dc0e414c4adb)
 
 
 
