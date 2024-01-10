@@ -85,3 +85,22 @@ elf@e49df7806f10:~$ cat bigscan.gnmap | grep -E "(/open/tcp.*){13}" | wc -l
 #  
 #  
 #  
+# CHALLENGE 3 - Frostvator #
+
+## PROCEDURE : ##
+
+Just a matter of re-arranging the available logic gates to turn the outputs on.
+The following table shows the logic output for each gate available:
+
+Input A|	Input B| AND|	OR|	NOR|	NAND|	XOR|	XNOR|
+:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:
+**0**|	**0**|	0|	0|	1|	1|	0|	1|
+**0**|	**1**| 0|	1|	0|	1|	1|	0|
+**1**|	**0**|	0|	1|	0|	1|	1|	0|
+**1**|	**1**|	1|	1|	0|	0|	0|	1|
+
+![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/88cd8def-3f5c-4a99-a0e6-e9f4b60582cb)
+
+#  
+#  
+#  
