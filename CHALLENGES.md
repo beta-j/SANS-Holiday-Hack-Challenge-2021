@@ -286,8 +286,9 @@ So I simply update the json file with the expected string for the program to run
 #  
 #  
 
- # CHALLENGE 8 - Elf Code #
+# CHALLENGE 8 - Elf Code #
 
+## PROCEDURE : ##
 ### LEVEL 3 - Don't Get Yeeted: ###
 ```
 import elf, munchkins, levers, lollipops, yeeters, pits
@@ -389,8 +390,20 @@ elf.moveUp(5)
 				#That’s 12 lines of code exactly!
 ```
 
+#  
+#  
+#  
 
+ # CHALLENGE 9 - Holiday Hero #
 
+## PROCEDURE: ##
+For this challenge we’re presented with a two-player game, which in itself is pretty cool as it encourages interaction and cooperation with other KringleCon attendees – it would be really awesome to see more of this at future KringleCons!  But KringleCon being what it is, this also presents an opportunity to hack the game and make it work with a single player (feeding in to the stereotype of hackers being loners I guess 😊 ).
+
+The first step to this challenge was pretty obvious; by using the in-browser developer tools in Chrome I found a Cookie called `HOHOHO` and changed its value from `{“single_player”:false}` to `{“single_player”:true}`.
+
+Next, I reloaded the iframe with the game and created a room in the game.  I looked around in the code until I spotted a number of interesting variables including one which **begged me not to change it**!  Nevertheless, in the end all I had to set was a single global variable called `single_player_mode` which when set to true in the console started the game with a virtual ‘computer’ Player 2.  Cool stuff!
+
+![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/bfbe2a77-114b-4131-9615-265d7a69b5eb)
 
 
 [^1]:[https://www.varonis.com/blog/yara-rules/#:~:text=uint16(0)%20%3D%3D%200x5A4D,due%20to%20endianness](https://www.varonis.com/blog/yara-rules/#:~:text=uint16(0)%20%3D%3D%200x5A4D,due%20to%20endianness)
