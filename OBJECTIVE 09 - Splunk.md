@@ -6,7 +6,7 @@
 
 ## HINTS: ##
 <details>
-  <summary>Hints provided for Objective 8</summary>
+  <summary>Hints provided for Objective 9</summary>
   
 >-	Sysmon network events don't reveal the process parent ID for example. Fortunately, we can pivot with a query to investigate process creation events once you get a process ID.
 >-	Did you know there are multiple versions of the Netcat command that can be used maliciously? `nc.openbsd`, for example.
