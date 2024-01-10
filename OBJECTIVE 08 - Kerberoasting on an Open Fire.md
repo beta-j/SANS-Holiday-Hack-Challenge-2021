@@ -54,9 +54,11 @@ I could also run ``rpcclient $> enumdomgroups`` to get a list of domain groups
 ![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/3874ac46-5c04-4431-a253-5001eb455c5f)
 
 and ``rpcclient $> get dompwinfo`` to find out what kind of password requirements are enforced on the domain.  From this I learned that the domain requires a **minimum password length of 7 characters**.  Something tells me this might be useful later on in this challenge...
+
 ![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/72cfd07c-b4f6-4a24-b1da-0e1f2be9a068)
 
 Running `nmap` towards the `10.x.x.x` networks with the `-PS22,445` switch as suggested in the hint gives us two hosts that are particularly interesting: `10.128.3.30` and `10.128.1.53`.  The latter’s hostname is `hhc21-windows-dc.c.holidayhack2021.internal` and by connecting to it using `rpcclient` and running ``rpcclient $> querydominfo``, I confirmed that the Server’s role is `ROLE_DOMAIN_PDC` – presumably that stands for **P**rimary **D**omain **C**ontroller.  Similarly, I was able to determine that `10.128.3.30` is the BDC – **B**ackup **D**omain **C**ontroller.
+
 ![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/13e71f00-3f20-4403-b767-931b5fc6f2e8)
 
 Now that I found the domain controller, I should be able to use [Kerbroasting](https://attack.mitre.org/techniques/T1558/003/) to get a password hash.  I start by uploading the script `GetUserSPNs.py`[^1]  using `scp`:
