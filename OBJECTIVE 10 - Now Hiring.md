@@ -16,6 +16,7 @@
 ## PROCEDURE : ##
 
 We start off with a very helpful hint in what Noxious O D’Or tells us before giving us the official hints for this objective; *“Dr. Petabyte told us, ‘Anytime you see URL as an input, test for SSRF.’”*.
+
 ![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/8a5442bb-084e-4d48-aa4b-109ffcbfe499)
 
 This is particularly helpful since the Jack Frost Tower application form includes a field which expects a URL to a public *“NLBI Report”* as input
