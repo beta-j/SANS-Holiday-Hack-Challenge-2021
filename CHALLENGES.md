@@ -36,6 +36,8 @@ This is a super quick one just ran the following command to filter out any exif 
 ```
 :~$ exiftool . | grep -B40 Jack
 ```
+
+[back to top](#contents)
 #  
 #  
 #  
@@ -107,6 +109,7 @@ elf@e49df7806f10:~$ cat bigscan.gnmap | grep -E "(/open/tcp.*){13}" | wc -l
 ```
 **A: 12**
 
+[back to top](#contents)
 #  
 #  
 #  
@@ -126,6 +129,7 @@ Input A|	Input B| AND|	OR|	NOR|	NAND|	XOR|	XNOR|
 
 ![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/88cd8def-3f5c-4a99-a0e6-e9f4b60582cb)
 
+[back to top](#contents)
 #  
 #  
 #  
@@ -170,6 +174,7 @@ OK – so let’s follow its advice and try to connect to the service on port 90
 
 That’s it – that must be the passphrase! 
 
+[back to top](#contents)
 #  
 #  
 #  
@@ -219,6 +224,7 @@ Login from <HOST> rejected due to unknown user name$
 
 I restarted `Fail2ban` and refreshed the naughtylist and that’s it – mission accomplished 😊
 
+[back to top](#contents)
 #  
 #  
 #  
@@ -259,6 +265,7 @@ I decided that it would be easiest to change the last rule only and changed the 
 
 To make the above change I used `vim` once again, saved the output to the new file, made it executable and then I could finally run it successfully without tripping over any Yara rules.
 
+[back to top](#contents)
 #  
 #  
 #  
@@ -307,6 +314,7 @@ This time I see that the program is looking for a `:` following `Registration` a
 
 So I simply update the json file with the expected string for the program to run successfully 😊  
 
+[back to top](#contents)
 #  
 #  
 #  
@@ -415,6 +423,7 @@ elf.moveUp(5)
 				#That’s 12 lines of code exactly!
 ```
 
+[back to top](#contents)
 #  
 #  
 #  
@@ -430,5 +439,6 @@ Next, I reloaded the iframe with the game and created a room in the game.  I loo
 
 ![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/bfbe2a77-114b-4131-9615-265d7a69b5eb)
 
+[back to top](#contents)
 
 [^1]:[https://www.varonis.com/blog/yara-rules/#:~:text=uint16(0)%20%3D%3D%200x5A4D,due%20to%20endianness](https://www.varonis.com/blog/yara-rules/#:~:text=uint16(0)%20%3D%3D%200x5A4D,due%20to%20endianness)
