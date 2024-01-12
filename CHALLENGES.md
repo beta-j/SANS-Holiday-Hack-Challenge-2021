@@ -1,3 +1,28 @@
+# CHALLENGES #
+
+## CONTENTS: ##
+
+**[CHALLENGE 1 - ExifMetadata](#challenge-1---exifmetadata)**
+
+**[CHALLENGE 2 - Grepping for Gold](#challenge-2---grepping-for-gold)**
+
+**[CHALLENGE 3 - Frostvator](#challenge-3---frostvator)**
+
+**[CHALLENGE 4 - IPv6 Sandbox](#challenge-4---ipv6-sandbox)**
+
+**[CHALLENGE 5 - HoHo-No](#challenge-5---hoho-no)**
+
+**[CHALLENGE 6 - Yara Analysis](#challenge-6---yara-analysis)**
+
+**[CHALLENGE 7 - Strace Ltrace Retrace Challenge!](#challenge-7---strace-ltrace-retrace-challenge)**
+
+**[CHALLENGE 8 - Elf Code](#challenge-8---elf-code)**
+
+**[CHALLENGE 9 - Holiday Hero](#challenge-9---holiday-hero)**
+#  
+#  
+#  
+
 # CHALLENGE 1 - ExifMetadata #
 
 ## OBJECTIVE : ##
