@@ -29,7 +29,7 @@
 >This level currently fails to build because it has no code. Can you add a **ret**urn statement at the end? Don't worry about what it's actually returning (yet!)
 >
 >Feel free to check previous levels!
-```
+```nasm
 ret
 ```
 
@@ -62,7 +62,7 @@ ret
 >For this level, can you return the number '1337' from your function?
 >
 >That means that `rax` must equal `1337` when the function returns.
-```
+```nasm
 mov rax, 1337
 ret
 ```
@@ -89,7 +89,7 @@ ret
 >Can you prepare `rax` and `rdi` with the correct values to exit?
 >
 >As always, feel free to mess around as much as you like!
-```
+```nasm
 mov rax, 60
 mov rdi, 99
 syscall
@@ -101,7 +101,7 @@ syscall
 >You might think I'm mad, but there's a method to my madness. Run the code below and watch what happens! No need to modify it, unless you want to. :)
 >
 >Be sure to look at the debugger to see what's going on! Especially notice the top of the stack at the `ret` instruction.
-```
+```nasm
 push 0x12345678
 ret
 ```
@@ -132,7 +132,7 @@ ret
 >#  
 >For this exercise, can you `pop` the address after the call - the *No Op* (`nop`) instruction - into `rax` then return?
 
-```
+```nasm
 call place_below_the_nop
 nop
 place_below_the_nop:
@@ -154,7 +154,7 @@ ret
 >Instead of trying to run it, can you `call` past it, and `pop` its address into `rax`?
 >
 >Don't forget to check the debugger after to see it in `rax`!
-```
+```nasm
 call something
 db 'Hello World',0
 something:
@@ -170,7 +170,7 @@ ret
 >Have another look [at the syscall table](https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/). Can you find `sys_write`, and use to to print the string `Hello World`! to stdout?
 >
 >Note: stdout's file descriptor is `1`.
-```
+```nasm
 call something
 db 'Hello World!',0
 something:
@@ -188,7 +188,7 @@ ret
 >Can you use the `sys_open` syscall to open `/etc/passwd`, then return the file handle (in `rax`)?
 >
 >Have another look [at the syscall table](https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/). Can you call `sys_open` on the file `/etc/passwd`, then return the file handle? Here's the [syscall table](https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/) again.
-```
+```nasm
 call placeholder
 db '/etc/passwd',0
 placeholder:
@@ -226,7 +226,7 @@ ret
 >Good luck!
 >
 
-```
+```nasm
 call placeholder
 db '/var/northpolesecrets.txt',0
 placeholder:
