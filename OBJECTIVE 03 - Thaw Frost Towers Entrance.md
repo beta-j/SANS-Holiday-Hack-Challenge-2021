@@ -18,7 +18,7 @@
 ## PROCEDURE : ##
 
 There’s an open window conveniently located close to Greasy Gopherguts – I’m thinking I can probably do a Wi-Fi scan from somewhere near this window...
-```
+```console
 elf@4979e808b4f5:~$ iwconfig
 wlan0     IEEE 802.11  ESSID:off/any  
           Mode:Managed  Access Point: Not-Associated   Tx-Power=22 dBm   
@@ -27,7 +27,7 @@ wlan0     IEEE 802.11  ESSID:off/any
 ```
 
 Running `iwconfig` confirms that I have a wifi interface named `wlan0`, so I can now scan for Wi-Fi networks on this interface:
-```
+```console
 elf@4979e808b4f5:~$ iwlist wlan0 scan    
 wlan0     No scan results
 ```
@@ -36,7 +36,7 @@ No luck.... oh wait there’s another open window and I think I can spot a round
 
 ![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/f0096453-14bb-47de-833a-d510af7d5fb1)
 
-```
+```console
 elf@b72ff8033ef5:~$ iwlist wlan0 scan
 wlan0     Scan completed :
           Cell 01 - Address: 02:4A:46:68:69:21
@@ -49,14 +49,14 @@ wlan0     Scan completed :
 That did the trick – we now have an ESSID: **`Frost-Nidus-Setup`** which we can try to connect to using `iwconfig`.
 
 Connecting to the (thankfully unsecured) Wi-Fi network we get a helpful MOTD:
-```
+```console
 elf@b72ff8033ef5:~$ iwconfig wlan0 essid FROST-Nidus-Setup
 ** New network connection to Nidus Thermostat detected! Visit http://nidus-setup:8080/ to complete setup
 (The setup is compatible with the 'curl' utility)
 ```
 
 So I followed it’s advice:
-```
+```console
 elf@b72ff8033ef5:~$ curl http://nidus-setup:8080/
 ◈──────────────────────────────────────────────────────────────────────────────◈
 
@@ -81,7 +81,7 @@ Trying to register the thermostat seems useless at this point as it requires us 
 If we `curl` to `http://nidus-setup:8080/apidoc` we can see that we are indeed allowed to change the cooler settings without registering and we are conveniently told that we can do this by using a `POST` request with a JSON payload.
 
 Following the command structure suggested by the API itself, we can raise the temperature to a balmy 20 degrees:
-```
+```console
 elf@290c75e4b151:~$ curl -XPOST -H 'Content-Type: application/json'   --data-binary '{"temperature": 20}'   http://nidus-setup:8080/api/cooler
 {
   "temperature": 19.77,
