@@ -27,7 +27,7 @@ In particular it looks like strings such as `file:///etc/passwd` and `http://169
 
 This way I was able to retrieve the contents of `/etc/passwd` and `http://169.254.169.254/latest/meta-data` as expected.
 Similarly by submitting `http://169.254.169.254/latest/meta-data/security-credentials` I found a user called `jf-deploy-role` and presumably `jf` stands for our old enemy; **Jack Frost**.  So by going back to the application form and submitting `http://169.254.169.254/latest/meta-data/security-credentials/jf-deploy-role` I got the following raw output:
-```
+```json
 	"Code": "Success",
 	"LastUpdated": "2021-05-02T18:50:40Z",
 	"Type": "AWS-HMAC",
