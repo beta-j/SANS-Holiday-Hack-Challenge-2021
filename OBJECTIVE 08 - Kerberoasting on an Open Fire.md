@@ -61,7 +61,7 @@ Running `nmap` towards the `10.x.x.x` networks with the `-PS22,445` switch as su
 
 ![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/13e71f00-3f20-4403-b767-931b5fc6f2e8)
 
-Now that I found the domain controller, I should be able to use [Kerbroasting](https://attack.mitre.org/techniques/T1558/003/) to get a password hash.  I start by uploading the script `GetUserSPNs.py`[^1]  using `scp`:
+Now that I found the domain controller, I should be able to use [Kerberoasting](https://attack.mitre.org/techniques/T1558/003/) to get a password hash.  I start by uploading the script `GetUserSPNs.py`[^1]  using `scp`:
 ```python
 > Scp -P 2222 GetUserSPNs.py username@grades.elfu.org:
 ```
