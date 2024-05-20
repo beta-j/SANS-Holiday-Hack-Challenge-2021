@@ -77,6 +77,7 @@ Once the script ran, I got a text file; `spns.txt` which contains a hash for use
 ```
 
 For the next step I need to crack the hash using [Hashcat](https://hashcat.net/hashcat/).  For this I’ll need a suitable wordlist and a mangling ruleset.  The hints suggest using `Cewl` to generate the wordlist and `OneRuleToRuleThemAll.rule`[^2]  as a mangling rule.  From the enumeration I did earlier on the domain connected machines, I know that the domain password rules expect a password with a minimum length of 7 characters.  So, I can use `cewl` to scrape `https://register.elfu.org/register` for words of suitable length.  I also include the `–with-numbers` switch as recommended by the hints (by looking at the page source we see the names of karaoke groups which look a bit like potential passwords and include numbers in them).
+
 ![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/4a478247-50e0-46d3-84ad-045b65308d12)
 ```console
 $ cewl -m 7 -w custom_wordlist.txt –with-numbers https://register.elfu.org/register
