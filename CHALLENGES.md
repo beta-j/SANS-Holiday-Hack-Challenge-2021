@@ -243,9 +243,11 @@ I restarted `Fail2ban` and refreshed the naughtylist and that’s it – mission
 ## PROCEDURE : ##
 
 If I try to run the app I get an error message saying the app is failing on `yara_rule_135`.  I can open yara rules to see that rule 135 is looking for a match to the string `candycane`.
+
 ![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/03bb7066-ace4-4318-8f76-d8b71175e2da)
 
 Opening the app with `nano` and changing the string `candycane` to `candyc@ne` allows me to bypass yara rule 135 but I am now being blocked by `yara_rule_1056`.
+
 ![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/f067dde2-fadd-4f2c-8b9f-b582c9181db9)
 
 To bypass this one I opened the binary as a hex file in vim using:
