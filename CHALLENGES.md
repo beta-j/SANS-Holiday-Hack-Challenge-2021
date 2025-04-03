@@ -260,11 +260,11 @@ I then found one of the hex strings defined in yara rule 1056 and modified it sl
 Now I was getting stuck on `yara_rule_1732` which looks for a number of matches.  For the program to be halted it needs to match ***all*** of the following:
 -	The program must contain at least 10 of the 20 defined strings
 -	The program must be less than 50kB large
--	The second byte of the program (i.e. the file start offset by 1) should be `45 4c 46 02` (note that the order of the octets is reversed due to endianness[^1] ).
--	
+-	The second byte of the program (i.e. the file start offset by 1) should be `45 4c46 02` (note that the order of the octets is reversed due to endianness[^1] ).
+  
 ![image](https://github.com/beta-j/SANS-Holiday-Hack-Challenge-2021/assets/60655500/e48df643-0179-4f12-af3a-0fd8c768332d)
 
-I decided that it would be easiest to change the last rule only and changed the hex from `45 4c46 02 to 45 4c46 22`.  *NOTE: changing one of the characters in the preceding `45 4c46` part would result in an error as this forms part of the standard Linux binary header that the system is expecting*.
+I decided that it would be easiest to change the last rule only and changed the hex from `45 4c46 02` to `45 4c46 22`.  *NOTE: changing one of the characters in the preceding `45 4c46` part would result in an error as this forms part of the standard Linux binary header that the system is expecting*.
 
 To make the above change I used `vim` once again, saved the output to the new file, made it executable and then I could finally run it successfully without tripping over any Yara rules.
 
